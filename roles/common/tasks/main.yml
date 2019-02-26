@@ -1,0 +1,51 @@
+- name: Run upgrade pacman
+  become: yes
+  pacman:
+    update_cache: yes
+    upgrade: yes
+
+- name: Run upgrade yay
+  aur:
+    upgrade: yes
+    use: yay
+
+- name: Install pacman packages
+  become: yes
+  pacman:
+    name: "{{ item.name }}"
+    state: "{{ item.state }}"
+  with_items:
+    - { name: yay, state: latest }
+    - { name: ansible, state: latest }
+    - { name: git, state: latest }
+    - { name: vim, state: latest }
+    - { name: rxvt-unicode, state: latest }
+    - { name: tmux, state: latest }
+    - { name: xsel, state: latest }
+    - { name: curl, state: latest }
+    - { name: ibus-skk, state: latest }
+    - { name: skk-jisyo, state: latest }
+    - { name: docker, state: latest }
+    - { name: docker-compose, state: latest }
+    - { name: google-chrome, state: latest }
+    - { name: code, state: latest }
+    - { name: yarn, state: latest }
+    - { name: vlc, state: latest }
+    - { name: rofi, state: latest }
+    - { name: feh, state: latest }
+    - { name: arandr, state: latest }
+
+- name: Install yay packages
+  aur:
+    use: yay
+    name:
+      - ansible-aur-git
+      - i3lock-fancy-multimonitor-git
+      - ttf-myrica
+      - ttf-myricam
+      - direnv
+      - xkeysnail
+      - nvm
+      - google-cloud-sdk
+      - dropbox
+      - inkdrop
