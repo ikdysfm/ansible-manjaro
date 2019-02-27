@@ -1,0 +1,4 @@
+user_name: yoshifumi # ansible_userをそのまま使っても良かったが明示的に定義
+user_home: /home/{{ user_name }} # become:yesだと~が使えなかったので明示的に定義
+dotfiles_path: "{{ user_home }}/src/github.com/ikdysfm/dotfiles" # .gitconfigに書いてあるghqの設定と合わせること
+xkeysnail_config: x1carbon # 起動時に適用したいconfigファイルの名前

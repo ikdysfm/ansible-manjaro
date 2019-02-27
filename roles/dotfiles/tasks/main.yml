@@ -1,1 +1,30 @@
-# TODO: dotfilesのコピーとリンク貼り。ただしファイルによってはこのリポジトリで管理した方が良いかも
+- name: clone dotfiles
+  git:
+    repo: git@github.com:ikdysfm/dotfiles.git # pushには鍵を作るかssh-agentを使う
+    dest: "{{ dotfiles_path }}"
+
+- name: create dotfiles directories
+  file:
+    path: "{{ item }}"
+    state: directory
+  with_items:
+    - "{{ user_home }}/.config/i3"
+    - "{{ user_home }}/.config/xkeysnail"
+
+# TODO: dotfilesのリンク貼り。ただしファイルによってはこのリポジトリで管理した方が良いかも
+# TODO: まずdotfilesにi3wmの今のconfigファイルを追加
+# TODO: そしてxkeysnailについてはi3configに"sudo xkeysnail config.py"を追加すれば良いのでは？
+- name: create dotfiles symlinks
+  file:
+    src: "{{ dotfiles_path }}/{{ item.src }}"
+    dest: "{{ item.dest }}"
+    state: link
+    force: yes
+  with_items:
+    - { src: git/.gitconfig, dest: "{{ user_home }}/.gitconfig" }
+    - { src: git/.gitignore_global, dest: "{{ user_home }}/.gitignore_global" }
+    - { src: i3wm/config, dest: "{{ user_home }}/.config/i3/config" }
+    - {
+        src: "xkeysnail/{{ xkeysnail_config }}.py",
+        dest: "{{ user_home }}/.config/xkeysnail/config.py",
+      }
