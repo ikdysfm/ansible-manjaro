@@ -1,0 +1,8 @@
+# TODO: 試す前に適当なファイルでコロンのエスケープとか試すこと。
+#- name: Add sudoers settings
+#  become: yes
+#  blockinfile:
+#    path: "/etc/sudoers"
+#    create: no
+#    block: |
+#      {{ user_name }} ALL=NOPASSWD: (which xkeysnail)

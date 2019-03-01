@@ -1,5 +1,6 @@
 - hosts: localhost
   roles:
     - common
-    - skk
     - dotfiles
+    - skk
+    - xkeysnail
